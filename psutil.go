@@ -12,10 +12,10 @@ import (
 )
 
 type DiskInfo struct {
-	Device     string
-	MountPoint string
-	Total      uint64
-	Used       uint64
+	Device     string `json:"device"`
+	MountPoint string `json:"mount_point"`
+	Total      uint64 `json:"total"`
+	Used       uint64 `json:"used"`
 }
 
 // Disks info

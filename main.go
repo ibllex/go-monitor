@@ -8,15 +8,18 @@ import (
 )
 
 func main() {
-	r := gin.Default()
+	// init web router
+	routeBase := "/monitor"
+
+	r := InitRouter(routeBase, gin.Default())
+
+	r.GET(routeBase, func(ctx *gin.Context) {
+		ctx.String(http.StatusOK, "/")
+	})
 
 	// run monitor task
 	m := NewMonitor()
 	m.Run(context.Background())
-
-	r.GET("/", func(ctx *gin.Context) {
-		ctx.String(http.StatusOK, "/")
-	})
 
 	// start http listener
 	http.ListenAndServe(":8080", r)
