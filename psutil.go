@@ -64,19 +64,19 @@ func CpuUsage() float64 {
 }
 
 type LoadInfo struct {
-	Load1      float64
-	Load5      float64
-	Load15     float64
-	Percentage float64
+	Load1   float64
+	Load5   float64
+	Load15  float64
+	Percent float64
 }
 
 // Get system load
 func SystemLoad() *LoadInfo {
 	stat, _ := load.Avg()
 	return &LoadInfo{
-		Load1:      stat.Load1,
-		Load5:      stat.Load5,
-		Load15:     stat.Load15,
-		Percentage: stat.Load1 / (float64(CpuCount()*2) * 0.75) * 100,
+		Load1:   stat.Load1,
+		Load5:   stat.Load5,
+		Load15:  stat.Load15,
+		Percent: stat.Load1 / (float64(CpuCount()*2) * 0.75) * 100,
 	}
 }

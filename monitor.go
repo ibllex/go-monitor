@@ -3,6 +3,7 @@ package main
 import (
 	"context"
 	"fmt"
+	"log"
 	"time"
 )
 
@@ -42,7 +43,7 @@ func (m *Monitor) Stop() {
 func (m *Monitor) do(ctx context.Context) <-chan error {
 	errCh := make(chan error)
 	go func() {
-		t := time.NewTicker(time.Second)
+		t := time.NewTicker(time.Second * 10)
 
 		defer func() {
 			t.Stop()
@@ -67,5 +68,13 @@ func (m *Monitor) do(ctx context.Context) <-chan error {
 
 // Get & save system information
 func (m *Monitor) next() {
-	fmt.Println(SystemLoad().Percentage)
+	r := SaveRecord(&Record{
+		LoadPercent:     SystemLoad().Percent,
+		CpuUsagePercent: CpuUsage(),
+		MemUsagePercent: MemeoryInfo().UsedPercent,
+	})
+
+	if r.Error != nil {
+		log.Print(r.Error)
+	}
 }
