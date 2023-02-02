@@ -49,7 +49,7 @@ func main() {
 	ticker := time.NewTicker(24 * time.Hour)
 	go func() {
 		for range ticker.C {
-			CleanRecords(10 * 24 * time.Hour)
+			CleanRecords(30 * 24 * time.Hour)
 		}
 	}()
 
