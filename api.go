@@ -22,9 +22,24 @@ func GetSystemInfo(c *fgin.Context) {
 	c.Item(i, NewSystemInfoTransformer())
 }
 
+func History(c *fgin.Context) {
+
+	records := Records()
+	collection := []interface{}{}
+
+	for _, r := range records {
+		collection = append(collection, r)
+	}
+
+	c.Collection(collection, NewRecordTransformer())
+}
+
 func InitRouter(base string, r *gin.Engine) *gin.Engine {
+	r.Use(Cors())
+
 	v1 := r.Group(base + "/api/v1")
 	v1.GET("/system", fgin.H(GetSystemInfo))
+	v1.GET("/history", fgin.H(History))
 
 	return r
 }

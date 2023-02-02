@@ -9,10 +9,11 @@ import (
 
 type Monitor struct {
 	stop func()
+	dur  time.Duration
 }
 
-func NewMonitor() *Monitor {
-	return &Monitor{}
+func NewMonitor(dur time.Duration) *Monitor {
+	return &Monitor{dur: dur}
 }
 
 // Run monitor
@@ -43,7 +44,7 @@ func (m *Monitor) Stop() {
 func (m *Monitor) do(ctx context.Context) <-chan error {
 	errCh := make(chan error)
 	go func() {
-		t := time.NewTicker(time.Second * 10)
+		t := time.NewTicker(m.dur)
 
 		defer func() {
 			t.Stop()

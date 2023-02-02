@@ -33,3 +33,13 @@ type Record struct {
 func SaveRecord(r *Record) *gorm.DB {
 	return db.Create(r)
 }
+
+// Get all records
+func Records() (records []*Record) {
+	db.Find(&records)
+	return
+}
+
+func CleanRecords(keepDays time.Duration) *gorm.DB {
+	return db.Where("created_at < ?", time.Now().Add(-1*keepDays)).Delete(&Record{})
+}
