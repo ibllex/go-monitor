@@ -8,6 +8,7 @@
 *.dll
 *.so
 *.dylib
+/go-monitor*
 
 # Test binary, built with `go test -c`
 *.test
@@ -89,6 +90,7 @@ pids
 *.pid.lock
 
 /tmp
+/build
 /dist
 /data/*
 !/data/.gitkeep
