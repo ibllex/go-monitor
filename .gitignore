@@ -88,6 +88,7 @@ pids
 *.seed
 *.pid.lock
 
+/dist
 /data/*
 !/data/.gitkeep
 

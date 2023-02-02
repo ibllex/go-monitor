@@ -1,8 +1,10 @@
 import axios from "axios";
 
 if (!window.axios) {
+    const loc = window.location.toString()
+
     window.axios = axios.create({
-        baseURL: 'http://localhost:8080/monitor/api/v1/'
+        baseURL: loc.substring(0, loc.length - 1) + '-api'  + '/v1/'
     });
 }
 

@@ -37,7 +37,7 @@ func History(c *fgin.Context) {
 func InitRouter(base string, r *gin.Engine) *gin.Engine {
 	r.Use(Cors())
 
-	v1 := r.Group(base + "/api/v1")
+	v1 := r.Group(base + "-api/v1")
 	v1.GET("/system", fgin.H(GetSystemInfo))
 	v1.GET("/history", fgin.H(History))
 

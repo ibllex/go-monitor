@@ -2,8 +2,10 @@ package main
 
 import (
 	"context"
+	"embed"
 	"flag"
 	"fmt"
+	"io/fs"
 	"log"
 	"net/http"
 	"time"
@@ -17,6 +19,9 @@ var (
 	dbFile  string
 	cfg     Config
 )
+
+//go:embed static/dist
+var staticFiles embed.FS
 
 func main() {
 	// Parse cmd flags
@@ -53,9 +58,12 @@ func main() {
 
 	r := InitRouter(routeBase, gin.Default())
 
-	r.GET(routeBase, func(ctx *gin.Context) {
-		ctx.String(http.StatusOK, "/")
-	})
+	dist, err := fs.Sub(staticFiles, "static/dist")
+	if err != nil {
+		log.Fatalln(err)
+	}
+
+	r.StaticFS(routeBase, http.FS(dist))
 
 	// Run monitor task
 	m := NewMonitor(1 * time.Minute)
