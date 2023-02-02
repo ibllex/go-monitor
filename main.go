@@ -26,16 +26,19 @@ var staticFiles embed.FS
 func main() {
 	// Parse cmd flags
 	flag.StringVar(&cfgFile, "config", "data/monitor.ini", "config file path")
-	flag.StringVar(&dbFile, "db", "data/monitor.db", "database file")
+	flag.StringVar(&dbFile, "database", "data/monitor.db", "database file")
 
 	flag.Parse()
 
+	// Init database
+	initDB()
+
+	// Load config
 	cfg = Config{
 		Port: 8080,
 		Slug: "monitor",
 	}
 
-	// Load config
 	ini.MapTo(&cfg, cfgFile)
 
 	cfgHanfler := ini.Empty()
