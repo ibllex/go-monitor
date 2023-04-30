@@ -23,7 +23,7 @@ jobs:
 
       - name: yarn
         run: |
-          cd static && yarn build
+          cd static && yadn  && yarn build
 
       - name: Set up Go
         uses: actions/setup-go@v2
