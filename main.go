@@ -35,8 +35,9 @@ func main() {
 
 	// Load config
 	cfg = Config{
-		Port: 8080,
-		Slug: "monitor",
+		Port:    8080,
+		Slug:    "monitor",
+		History: 30,
 	}
 
 	ini.MapTo(&cfg, cfgFile)
@@ -52,7 +53,7 @@ func main() {
 	ticker := time.NewTicker(24 * time.Hour)
 	go func() {
 		for range ticker.C {
-			CleanRecords(30 * 24 * time.Hour)
+			CleanRecords(time.Duration(cfg.History*24) * time.Hour)
 		}
 	}()
 
