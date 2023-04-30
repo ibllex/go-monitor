@@ -1,0 +1,16 @@
+[Unit]
+Description=Go Monitor
+After=syslog.target
+After=network.target
+
+[Service]
+RestartSec=2s
+Type=simple
+User=root
+Group=root
+WorkingDirectory=/root/monitor/
+ExecStart=/root/monitor/go-monitor --config /root/monitor/data/monitor.ini --database /root/monitor/data/monitor.db
+Restart=always
+
+[Install]
+WantedBy=multi-user.target
